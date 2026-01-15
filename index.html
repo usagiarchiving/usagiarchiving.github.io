@@ -7,9 +7,8 @@
     
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,18 +21,18 @@
     <div id="config-modal">
         <div class="modal-content">
             <h3>⚙️ GitHub 연동 설정</h3>
-            <p class="warning-text">* 토큰은 브라우저에만 저장되며 서버로 전송되지 않습니다.</p>
+            <p class="warning-text">* 404 오류 시 Repo 이름과 ID를 확인하세요.</p>
             
-            <label>GitHub Username (ID)</label>
-            <input type="text" id="cfg-owner" placeholder="예: my-github-id">
+            <label>GitHub ID</label>
+            <input type="text" id="cfg-owner" placeholder="예: git-user-id">
             
             <label>Repository Name</label>
-            <input type="text" id="cfg-repo" placeholder="예: my-backup-repo">
+            <input type="text" id="cfg-repo" placeholder="예: my-backup">
             
-            <label>Personal Access Token (Repo 권한 필수)</label>
+            <label>Token (Repo 권한 필수)</label>
             <input type="password" id="cfg-token" placeholder="ghp_...">
             
-            <button class="btn-accent full-width" onclick="saveConfig()">연동 정보 저장 및 불러오기</button>
+            <button class="btn-accent full-width" onclick="saveConfig()">연동 정보 저장 및 연결</button>
             <button class="btn-ghost full-width mt-5" onclick="closeConfig()">닫기</button>
         </div>
     </div>
@@ -55,12 +54,22 @@
                 </div>
             
             <div class="cat-controls">
-                <input type="text" id="new-cat-name" placeholder="새 카테고리 명">
-                <select id="parent-cat-select">
-                    <option value="">최상위 폴더</option>
-                </select>
-                <button class="btn-ghost full-width border-btn" onclick="addCategory()">+ 카테고리 추가</button>
-                <button class="btn-accent full-width mt-10" onclick="syncData()">💾 전체 저장 (GitHub Sync)</button>
+                <h4>카테고리 관리</h4>
+                <input type="text" id="new-cat-name" placeholder="카테고리 이름 입력">
+                
+                <div style="display: flex; gap: 5px; margin-bottom: 10px;">
+                    <button class="btn-ghost border-btn" style="flex:1;" onclick="addRootCategory()">+ 대분류 추가</button>
+                </div>
+
+                <div style="display: flex; gap: 5px; align-items: center;">
+                    <select id="parent-cat-select" style="flex:1; margin-bottom:0;">
+                        <option value="">상위 폴더 선택</option>
+                    </select>
+                    <button class="btn-ghost border-btn" style="width: 80px;" onclick="addSubCategory()">+ 추가</button>
+                </div>
+
+                <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;">
+                <button class="btn-accent full-width" onclick="syncData()">💾 전체 저장 (GitHub Sync)</button>
             </div>
         </aside>
 
