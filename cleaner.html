@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>텍스트 변환기</title>
+    <style>
+        body {
+            font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+            background-color: #f4f4f9;
+            display: flex; flex-direction: column; align-items: center;
+            padding-top: 50px; margin: 0; min-height: 100vh;
+        }
+        .container {
+            background-color: white; padding: 2rem; border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 90%; max-width: 600px;
+        }
+        h2 { text-align: center; color: #333; margin-bottom: 1.5rem; }
+        textarea { width: 100%; height: 120px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; resize: vertical; }
+        .btn-group { display: flex; gap: 10px; margin: 1.5rem 0; }
+        button { flex: 1; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; color: white; font-size: 16px; }
+        #convertBtn { background-color: #4a90e2; }
+        #copyBtn { background-color: #2ecc71; }
+        .breadcrumb { margin-bottom: 20px; align-self: flex-start; margin-left: max(5%, calc(50% - 300px)); }
+        .breadcrumb a { text-decoration: none; color: #666; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <div class="breadcrumb">
+        <a href="index.html">메인</a> &gt; 
+        <a href="category.html">카테고리</a> &gt; 
+        <b>텍스트 변환기</b>
+    </div>
+
+    <div class="container">
+        <h2>텍스트 클리너 (*, # 제거)</h2>
+        
+        <label style="font-weight:bold; color:#555;">입력</label>
+        <textarea id="inputText" placeholder="예: 안녕*하세요 #반갑습니다."></textarea>
+
+        <div class="btn-group">
+            <button id="convertBtn" onclick="convertText()">1. 변환하기</button>
+        </div>
+
+        <label style="font-weight:bold; color:#555;">결과</label>
+        <textarea id="outputText" readonly placeholder="결과가 여기에 나옵니다."></textarea>
+
+        <div class="btn-group">
+            <button id="copyBtn" onclick="copyText()">2. 전체 복사</button>
+        </div>
+    </div>
+
+<script>
+    function convertText() {
+        const input = document.getElementById('inputText').value;
+        const result = input.replace(/[*#]/g, '');
+        document.getElementById('outputText').value = result;
+    }
+
+    function copyText() {
+        const outputText = document.getElementById('outputText');
+        if (!outputText.value) { alert('복사할 내용이 없습니다.'); return; }
+        outputText.select();
+        outputText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(outputText.value).then(() => {
+            alert('복사되었습니다!');
+        });
+    }
+</script>
+
+</body>
+</html>
